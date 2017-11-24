@@ -2,15 +2,14 @@
 
 const { QQ } = require('.');
 const qq = new QQ({ cookiePath: '/tmp/my-qq-bot.cookie' });
-const axios = require('axios')
+const axios = require('axios');
 
 // 需要回复的人
-let need_responses = []
+let need_responses = [];
 // 管理员
-let admins = ['以后不要随便。']
+let admins = ['以后不要随便。'];
 
-let tulingapi = 'http://www.tuling123.com/openapi/api'
-let index = 0;
+let tulingapi = 'http://www.tuling123.com/openapi/api';
 let togger = false;
 
 qq.on('msg', async(msg) => {
@@ -30,7 +29,7 @@ qq.on('msg', async(msg) => {
 });
 
 qq.on('buddy', async (msg) => {
-    let tuling_msg = await getTulingChat(msg.content, msg.id)
+    let tuling_msg = await getTulingChat(msg.content, msg.id);
     qq.sendBuddyMsg(msg.id, tuling_msg);
 });
 
@@ -38,13 +37,13 @@ qq.on('buddy', async (msg) => {
 qq.run();
 
 async function getTulingChat(info, userid){
-    console.log('request tuling => ', info)
+    console.log('request tuling => ', info);
 
     let result = await axios.post(tulingapi, {
         key: 'ba3803166dd64ac3a109a6bab1e886cd',
         info: info,
         userid: userid || '0000',
-    })
+    });
 
     return result.data.url ? `${result.data.text}\n${result.data.url}`:result.data.text;
 }
@@ -127,7 +126,7 @@ function removeNeedResponse(user) {
     let delete_index = need_responses.findIndex(e => e.name == user.name );
 
     if (delete_index !== -1){
-        need_responses.splice(delete_index, 1)
+        need_responses.splice(delete_index, 1);
         return true;
     }
 
@@ -149,7 +148,7 @@ function removeAdmin(name) {
     let delete_index = admins.findIndex(e => e == name);
 
     if (delete_index !== -1){
-        admins.splice(delete_index, 1)
+        admins.splice(delete_index, 1);
         return true;
     }
 
