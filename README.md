@@ -1,3 +1,12 @@
+# 对接图灵机器
+
+在[example.js](./example.js)我对接了图灵api
+
+
+----
+
+# 以下是原作者的README [Rocket1184/qq-bot-rebown](https://github.com/Rocket1184/qq-bot-rebown)
+
 # qq-bot-rebown
 
 [![npm version](https://img.shields.io/npm/v/qq-bot-rebown.svg)](https://badge.fury.io/js/qq-bot-rebown)
