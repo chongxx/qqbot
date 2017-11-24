@@ -4,15 +4,6 @@ const { QQ } = require('.');
 const qq = new QQ({ cookiePath: '/tmp/my-qq-bot.cookie' });
 const axios = require('axios')
 
-let to_huzi_msgs = [
-    '胡子，你是不是又闲了？',
-    '你说你天天的不好好上班就知道灌水',
-    '要不要我帮你把强哥、涛哥、文哥叫出来一起吹牛',
-    '哦，对了，把欢哥喊出来说句，I\'m hungry',
-    '哈哈哈哈哈哈哈哈',
-    '我怎么才能更聪明一点?',
-]
-
 // 需要回复的人
 let need_responses = []
 // 管理员
