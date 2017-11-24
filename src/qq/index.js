@@ -26,7 +26,7 @@ class QQ extends EventEmitter {
                 style: [0, 0, 0],
                 color: '000000'
             },
-            cronTimeout: 60 * 1000,
+            cronTimeout: 60 * 1000 * 3,
             cookiePath: path.join(os.tmpdir(), 'qq-bot.cookie'),
             qrcodePath: path.join(os.tmpdir(), 'qq-bot-code.png')
         };
@@ -384,7 +384,7 @@ class QQ extends EventEmitter {
      * number -> only one matchs
      * number[] -> 2 or more match
      *
-     * @param {any} name 
+     * @param {any} name
      * @returns {number|number[]}
      * @memberof QQ
      */
