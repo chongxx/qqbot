@@ -15,8 +15,6 @@
     "webqq",
     "smartqq"
   ],
-  "repository": "github:rocket1184/qq-bot-rebown",
-  "author": "rocka <i@rocka.me> (https://rocka.me)",
   "license": "MIT",
   "dependencies": {
     "axios": "^0.17.0",
