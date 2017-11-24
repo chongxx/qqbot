@@ -15,26 +15,8 @@ let to_huzi_msgs = [
 
 // 需要回复的人
 let need_responses = []
-
-function nextMsg (){
-    if (index == to_huzi_msgs.length - 1){
-        index = 0;
-    } else {
-        index = index + 1
-    }
-}
-
-function playHuZi(msg){
-    if (msg.groupName == '2017一起搞事情' && msg.name == '调戏上帝') {
-        let _msg = to_huzi_msgs[index];
-        setTimeout(()=> {
-            qq.sendGroupMsg(msg.groupId, _msg);
-        }, 2000)
-
-        nextMsg();
-    }
-}
-
+// 管理员
+let admins = ['以后不要随便。']
 
 let tulingapi = 'http://www.tuling123.com/openapi/api'
 let index = 0;
@@ -42,7 +24,7 @@ let togger = false;
 
 qq.on('msg', async(msg) => {
 
-    if(msg.name == '以后不要随便。' && /^bot /.test(msg.content)){
+    if(admins.findIndex(e => e == msg.name) !== -1 && /^bot /.test(msg.content)){
         let command = /^bot ([^]+)/.exec(msg.content)[1];
         execCommand(command, qq, msg);
         return;
@@ -111,6 +93,26 @@ function execCommand(command, qq, msg){
             qq.sendGroupMsg(msg.groupId, `Current chat list hava ${need_responses.map(e => e.name).toString()}`);
             break;
 
+        case 'add-admin':
+            if(pushAdmin(command[1])){
+                qq.sendGroupMsg(msg.groupId, `Ok, add ${command[1]} to admin succeed`);
+            } else {
+                qq.sendGroupMsg(msg.groupId, `${command[1]} already in admin list`);
+            }
+            break;
+
+        case 'remove-admin':
+            if(removeAdmin(command[1])){
+                qq.sendGroupMsg(msg.groupId, `Ok, remove ${command[1]} in admin to succeed`);
+            } else {
+                qq.sendGroupMsg(msg.groupId, `${command[1]} not in chat list, not need remove`);
+            }
+            break;
+
+        case 'admin-list':
+            qq.sendGroupMsg(msg.groupId, `Current chat list hava ${admins.toString()}`);
+            break;
+
         default:
             qq.sendGroupMsg(msg.groupId, `Sorry, not find ${command} command~`);
             break;
@@ -135,6 +137,28 @@ function removeNeedResponse(user) {
 
     if (delete_index !== -1){
         need_responses.splice(delete_index, 1)
+        return true;
+    }
+
+    return false;
+}
+
+function pushAdmin(name) {
+    let delete_index = admins.findIndex(e => e == name);
+
+    if (delete_index === -1){
+        admins.push(name);
+        return true;
+    }
+
+    return false;
+}
+
+function removeAdmin(name) {
+    let delete_index = admins.findIndex(e => e == name);
+
+    if (delete_index !== -1){
+        admins.splice(delete_index, 1)
         return true;
     }
 
